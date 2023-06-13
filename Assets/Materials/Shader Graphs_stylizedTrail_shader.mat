@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7890331928165233918
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_stylizedTrail_shader
+  m_Shader: {fileID: -6465566751694194690, guid: 8d9c9373f90ced849a16582f013c8eac, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_efa38d8e23974cea80799ba255ab4316:
+        m_Texture: {fileID: 2800000, guid: 3bfbc747f022a984d8ad0443fe5d6cdc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: d5d9e1420f9b4f9498e26db4b670177f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _DissolveScale: 20
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    m_Colors:
+    - Color_35c2ef68b86f41f3817a129c4204f0fd: {r: 1, g: 0, b: 0, a: 1}
+    - Color_6420543238c04d2a867252c76b3dcee1: {r: 0, g: 0.04959774, b: 1, a: 1}
+    - Vector2_4ee9b17b65254ea98318641273ba2619: {r: 0.5, g: 0, b: 0, a: 0}
+    - _Color1: {r: 0, g: 32.144794, b: 34.29675, a: 1}
+    - _Color2: {r: 25.688938, g: 0, b: 22.998997, a: 1}
+    - _MainTexSpeed: {r: -0.5, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
