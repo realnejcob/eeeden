@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: podmanSentry_body
+  m_Name: podmanJumper_body
   m_Shader: {fileID: -6465566751694194690, guid: 4baa981d1224a644da88dc5d9a6d617f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -117,8 +117,8 @@ Material:
     m_Colors:
     - Color_20e668aacba24deabd76fca41a938f51: {r: 1.4980392, g: 0.03137255, b: 0, a: 1}
     - Color_469a0400cd854a15a78fad02b9c239d2: {r: 0, g: 2.5976195, b: 0.9623749, a: 1}
-    - Color_5919a5b3c390486ba691eb0a97668e41: {r: 0, g: 0.44313726, b: 0.27153397, a: 1}
-    - Color_e84407d39732404f8239fdbcee3b0ee2: {r: 0.23921567, g: 1, b: 0.88284045, a: 1}
+    - Color_5919a5b3c390486ba691eb0a97668e41: {r: 0.9245283, g: 0.07132568, b: 0.047970813, a: 1}
+    - Color_e84407d39732404f8239fdbcee3b0ee2: {r: 1, g: 0.9796005, b: 0.1273585, a: 1}
     - Vector2_6f562801c74b41b6a4fe3d43a86663d0: {r: 0.05, g: 0.16, b: 0, a: 0}
     - Vector2_fd82345075c945bb87fbba6ec819b10c: {r: 0, g: 0.05, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

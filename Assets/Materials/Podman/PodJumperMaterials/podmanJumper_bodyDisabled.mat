@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: podmanSentry_body
+  m_Name: podmanJumper_bodyDisabled
   m_Shader: {fileID: -6465566751694194690, guid: 4baa981d1224a644da88dc5d9a6d617f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -81,12 +81,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - FresnelEdge1: 0.631
+    - FresnelEdge1: 0.891
     - Vector1_0292c84547fb465c9df315bb3cb400bc: 7.95
     - Vector1_1d9f89bc5c62463ebec3f40f54fed76b: 0.24
-    - Vector1_58bf519edf414c75b1fa713ed131b876: 1.17
+    - Vector1_58bf519edf414c75b1fa713ed131b876: 1.67
     - Vector1_c6dbda9bb5c64cabb5152a5e723e6288: 0.822
-    - Vector1_eb050c78287e4310812ec1e04e919aa3: 0.696
+    - Vector1_eb050c78287e4310812ec1e04e919aa3: 0.929
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -115,12 +115,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_20e668aacba24deabd76fca41a938f51: {r: 1.4980392, g: 0.03137255, b: 0, a: 1}
-    - Color_469a0400cd854a15a78fad02b9c239d2: {r: 0, g: 2.5976195, b: 0.9623749, a: 1}
-    - Color_5919a5b3c390486ba691eb0a97668e41: {r: 0, g: 0.44313726, b: 0.27153397, a: 1}
-    - Color_e84407d39732404f8239fdbcee3b0ee2: {r: 0.23921567, g: 1, b: 0.88284045, a: 1}
+    - Color_20e668aacba24deabd76fca41a938f51: {r: 7.3772106, g: 0.15449657, b: 0, a: 1}
+    - Color_469a0400cd854a15a78fad02b9c239d2: {r: 0.5149178, g: 0.027320892, b: 0.036889452, a: 1}
+    - Color_5919a5b3c390486ba691eb0a97668e41: {r: 0.44313726, g: 0.06356417, b: 0, a: 1}
+    - Color_e84407d39732404f8239fdbcee3b0ee2: {r: 0.7430194, g: 0.74509805, b: 0.18039215, a: 1}
     - Vector2_6f562801c74b41b6a4fe3d43a86663d0: {r: 0.05, g: 0.16, b: 0, a: 0}
-    - Vector2_fd82345075c945bb87fbba6ec819b10c: {r: 0, g: 0.05, b: 0, a: 0}
+    - Vector2_fd82345075c945bb87fbba6ec819b10c: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

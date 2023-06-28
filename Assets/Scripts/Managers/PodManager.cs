@@ -16,12 +16,14 @@ public class PodManager : MonoBehaviour {
     }
 
     private void Start() {
-        activePod.EnablePod();
+        SetActivePod(activePod);
     }
 
     public void SetActivePod(PodBase newActivePod) {
-        activePod.DisablePod();
-        activePod = null;
+        if (activePod != null) {
+            activePod.DisablePod();
+            activePod = null;
+        }
 
         newActivePod.EnablePod();
         cameraFollow.SetFollowTarget(newActivePod.transform);

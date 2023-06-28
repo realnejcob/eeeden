@@ -11,8 +11,8 @@ public class PodBase : MonoBehaviour {
     [SerializeField] private MeshRenderer bodyMesh;
     [SerializeField] private Material enabledMaterial;
     [SerializeField] private Material disabledMaterial;
-    [SerializeField] private float enabledHeight = 1.025f;
-    [SerializeField] private float disabledHeight = 1.025f;
+    [SerializeField] protected float enabledHeight = 1.025f;
+    [SerializeField] protected float disabledHeight = 1.025f;
     [SerializeField] private ShiftDisplay shiftDisplay;
     [SerializeField] private ShiftRaycastHelper shiftRaycastHelper;
 
@@ -27,7 +27,7 @@ public class PodBase : MonoBehaviour {
 
     private List<PodBase> availablePods;
 
-    private GroundRider groundRider;
+    protected GroundRider groundRider;
 
     private void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -78,7 +78,7 @@ public class PodBase : MonoBehaviour {
         bodyMesh.materials = matArr;
     }
 
-    private void Update() {
+    private void LateUpdate() {
         ShiftAreaOfEffectDisplay();
 
         if (!IsControlling)
