@@ -1222,38 +1222,38 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -6.4608827
-      outSlope: -6.4608827
+      inSlope: -24.634243
+      outSlope: -24.634243
       tangentMode: 0
       weightedMode: 3
       inWeight: 0
       outWeight: 1
     - serializedVersion: 3
-      time: 0.099840276
-      value: 1
-      inSlope: -0.16320887
-      outSlope: -0.16320887
+      time: 0.026742354
+      value: 1.011928
+      inSlope: -0.13758615
+      outSlope: -0.13758615
       tangentMode: 0
       weightedMode: 3
       inWeight: 0.7984969
-      outWeight: 0.76725847
+      outWeight: 0.795207
     - serializedVersion: 3
-      time: 0.7395037
-      value: 0.9063083
-      inSlope: -0.17477846
-      outSlope: -0.17477846
+      time: 0.47909337
+      value: 0.94884604
+      inSlope: -0.17978533
+      outSlope: -0.17978533
       tangentMode: 0
       weightedMode: 3
-      inWeight: 0.2640251
-      outWeight: 0.17540699
+      inWeight: 0.091265514
+      outWeight: 0.982463
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -6.1193213
-      outSlope: -6.1193213
+      inSlope: -191.1572
+      outSlope: -191.1572
       tangentMode: 0
       weightedMode: 3
-      inWeight: 0.22150137
+      inWeight: 0.0051472215
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1272,7 +1272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rideHeight: 0.5
   rideSpringStrength: 250
-  rideSpringDamper: 1
+  rideSpringDamper: 10
   rayLength: 999
   maxSlopeDownForce: 0.15
 --- !u!114 &6980574328565211319
