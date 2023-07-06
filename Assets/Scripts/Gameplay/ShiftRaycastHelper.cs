@@ -10,7 +10,7 @@ public class ShiftRaycastHelper : MonoBehaviour {
 
     private Vector3 offset = Vector3.up;
 
-    public List<PodBase> AvailablePods { get; private set; } = new List<PodBase>();
+    public List<Shiftable> AvailablePods { get; private set; } = new List<Shiftable>();
 
     public void SetRadius(float newRadius) {
         radius = newRadius;
@@ -46,7 +46,7 @@ public class ShiftRaycastHelper : MonoBehaviour {
 
             if (Physics.SphereCast(ray, 0.15f, out var hit, radius, mask)) {
                 Debug.DrawLine(startingPosition, endPosition, Color.green);
-                var pod = hit.collider.GetComponent<PodBase>();
+                var pod = hit.collider.GetComponent<Shiftable>();
                 if (AvailablePods.Contains(pod))
                     continue;
 
@@ -57,7 +57,7 @@ public class ShiftRaycastHelper : MonoBehaviour {
         }
     }
 
-    public PodBase GetClosestPod() {
+    public Shiftable GetClosestPod() {
         var pod = AvailablePods.FirstOrDefault();
 
         if (AvailablePods.Count > 1) {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenerKeyCodePlate : Opener {
+public class OpenerKeyCodePlate : Gate {
     public KeyCode key;
 
     public Color lockColor;
