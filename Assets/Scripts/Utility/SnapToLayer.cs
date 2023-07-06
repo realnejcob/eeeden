@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[CanEditMultipleObjects]
 public class SnapToLayer : MonoBehaviour {
     [SerializeField] private LayerMask layer;
     [SerializeField] private float offset = 0;
