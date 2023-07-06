@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeviceBox : Device {
+public class DeviceBox : Key {
     public Color openedColor;
     public Color closedColor;
 

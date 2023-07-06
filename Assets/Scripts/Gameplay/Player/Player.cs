@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PodExplore : PodBase {
+public class Player : Shiftable {
     [Header("Explore Pod Variables:")]
     [SerializeField] private float maxSpeed = 8;
     [SerializeField] private float acceleration = 200;

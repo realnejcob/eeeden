@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PodManager : MonoBehaviour {
     public static PodManager Instance;
-    [SerializeField] private PodBase activePod;
+    [SerializeField] private Shiftable activePod;
     [SerializeField] private CameraFollow cameraFollow;
 
     private void Awake() {
@@ -19,7 +19,7 @@ public class PodManager : MonoBehaviour {
         SetActivePod(activePod);
     }
 
-    public void SetActivePod(PodBase newActivePod) {
+    public void SetActivePod(Shiftable newActivePod) {
         if (activePod != null) {
             activePod.DisablePod();
             activePod = null;

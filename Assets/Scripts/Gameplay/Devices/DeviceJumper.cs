@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(GroundRider))]
 
-public class PodJumper : PodBase {
+public class DeviceJumper : Shiftable {
     [Header("Jumper Pod Variables:")]
     [SerializeField] private float jumpHeight = 5;
     [SerializeField] private float jumpTimePerUnit = 0.2f;
@@ -34,7 +34,7 @@ public class PodJumper : PodBase {
 
     private void Jump() {
         jumpTween = LeanTween.value(gameObject, 0, 1, jumpTimePerUnit * jumpHeight).setOnUpdate((float t) => {
-            var newHeight = Mathf.LerpUnclamped(enabledHeight, jumpHeight, jumpCurve.Evaluate(t));
+            var newHeight = Mathf.LerpUnclamped(0.5f, jumpHeight, jumpCurve.Evaluate(t));
             groundRider.SetHeight(newHeight);
         });
     }

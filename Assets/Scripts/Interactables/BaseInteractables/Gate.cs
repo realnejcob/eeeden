@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Opener : MonoBehaviour {
+public abstract class Gate : MonoBehaviour {
     public bool IsUnlocked { get; set; } = false;
     public bool CanInteract { get; set; } = true;
 

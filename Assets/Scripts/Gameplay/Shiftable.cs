@@ -3,29 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PodBase : MonoBehaviour {
+public class Shiftable : MonoBehaviour {
     public bool IsControlling { get; private set; }
 
-    [Header("Base Variables:")]
-    [SerializeField] private MeshRenderer headMesh;
-    [SerializeField] private MeshRenderer bodyMesh;
-    [SerializeField] private Material enabledMaterial;
-    [SerializeField] private Material disabledMaterial;
-    [SerializeField] protected float enabledHeight = 1.025f;
-    [SerializeField] protected float disabledHeight = 1.025f;
+    [Header("Shiftable Variables:")]
     [SerializeField] private ShiftDisplay shiftDisplay;
     [SerializeField] private ShiftRaycastHelper shiftRaycastHelper;
 
     protected Rigidbody rb;
     protected Camera cam;
 
-    private PodBase targetedPod;
+    private Shiftable targetedShiftable;
     private bool canDisplayShiftAOE = false;
     private bool canShift = false;
 
     private float shiftRadius = 4f;
 
-    private List<PodBase> availablePods;
+    private List<Shiftable> availableShiftables;
 
     protected GroundRider groundRider;
 
@@ -48,10 +42,6 @@ public class PodBase : MonoBehaviour {
         IsControlling = true;
 
         //rb.isKinematic = false;
-        groundRider.SetHeight(enabledHeight);
-
-        headMesh.gameObject.SetActive(true);
-        SetBodyMaterial(enabledMaterial);
 
         canDisplayShiftAOE = true;
         shiftDisplay.gameObject.SetActive(true);
@@ -62,21 +52,12 @@ public class PodBase : MonoBehaviour {
         IsControlling = false;
 
         //rb.isKinematic = true;
-        groundRider.SetHeight(disabledHeight);
-
-        headMesh.gameObject.SetActive(false);
-        SetBodyMaterial(disabledMaterial);
 
         canDisplayShiftAOE = false;
         shiftDisplay.gameObject.SetActive(false);
         shiftRaycastHelper.gameObject.SetActive(false);
     }
 
-    private void SetBodyMaterial(Material newMaterial) {
-        var matArr = bodyMesh.materials;
-        matArr[0] = newMaterial;
-        bodyMesh.materials = matArr;
-    }
 
     private void LateUpdate() {
         ShiftAreaOfEffectDisplay();
@@ -106,12 +87,12 @@ public class PodBase : MonoBehaviour {
         if (foundPods.Length <= 1)
             return;
 
-        availablePods = new List<PodBase>();
+        availableShiftables = new List<Shiftable>();
 
         foreach (var obj in foundPods) {
-            var pod = obj.GetComponent<PodBase>();
+            var pod = obj.GetComponent<Shiftable>();
             if (!pod.IsControlling) {
-                availablePods.Add(pod);
+                availableShiftables.Add(pod);
                 print(pod.transform.position);
             }
         }
@@ -119,13 +100,13 @@ public class PodBase : MonoBehaviour {
 
     private void UpdateShiftAreaOfEffectConnections() {
         var rightStick = GetInput().GetRelativeInputDir(GetInput().RightStickRaw, true);
-        targetedPod = shiftRaycastHelper.GetClosestPod();
+        targetedShiftable = shiftRaycastHelper.GetClosestPod();
 
         if (rightStick.magnitude > 0) {
-            if (targetedPod == null) {
+            if (targetedShiftable == null) {
                 shiftDisplay.SetConnectionEndPoint(rightStick);
             } else {
-                shiftDisplay.SetConnectionEndPointAbsolute(targetedPod.transform.position);
+                shiftDisplay.SetConnectionEndPointAbsolute(targetedShiftable.transform.position);
             }
 
         } else {
@@ -143,12 +124,12 @@ public class PodBase : MonoBehaviour {
     }
 
     private void Shift() {
-        if (targetedPod != null) {
+        if (targetedShiftable != null) {
             shiftDisplay.CenterConnectionPoints();
             shiftDisplay.gameObject.SetActive(false);
 
-            PodManager.Instance.SetActivePod(targetedPod);
-            targetedPod = null;
+            PodManager.Instance.SetActivePod(targetedShiftable);
+            targetedShiftable = null;
         }
     }
 

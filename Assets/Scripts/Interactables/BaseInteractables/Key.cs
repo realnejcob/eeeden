@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Device : MonoBehaviour {
+public abstract class Key : MonoBehaviour {
     protected bool IsOpen { get; set; } = false;
     public bool isReOpenable = true;
-    public List<Opener> openersToUnlock = new List<Opener>();
+    public List<Gate> openersToUnlock = new List<Gate>();
 
     public virtual void Open() {
         IsOpen = true;
