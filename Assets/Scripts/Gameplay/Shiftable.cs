@@ -129,6 +129,7 @@ public class Shiftable : MonoBehaviour {
             shiftDisplay.gameObject.SetActive(false);
 
             PodManager.Instance.SetActivePod(targetedShiftable);
+
             targetedShiftable = null;
         }
     }

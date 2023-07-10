@@ -30,4 +30,8 @@ public class PodManager : MonoBehaviour {
 
         activePod = newActivePod;
     }
+
+    public CameraFollow GetCameraFollow() {
+        return cameraFollow;
+    }
 }

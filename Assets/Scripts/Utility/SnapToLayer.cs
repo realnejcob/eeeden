@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR
 [CanEditMultipleObjects]
 public class SnapToLayer : MonoBehaviour {
     [SerializeField] private LayerMask layer;
@@ -21,3 +21,4 @@ public class SnapToLayer : MonoBehaviour {
         }
     }
 }
+#endif
