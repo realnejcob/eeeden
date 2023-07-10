@@ -41,14 +41,14 @@ Material:
     - Vector1_cdefdf7b8ca94186ae7b71e1449b9a2f: 0.15
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RectRotation: 0.15
-    - _RectWidth: 0
+    - _RectRotation: -0.27
+    - _RectWidth: 0.147
     m_Colors:
     - Color_6c5a01af77cc4701a158bce7c58deca0: {r: 17.303318, g: 9.405907, b: 2.9282541, a: 1}
     - Color_a813e74720fe4bfdae2f63c41adb05f9: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 0.09803922}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.5686275}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _RectOffset: {r: 0.02, g: 0, b: 0, a: 0}
-    - _ShineColor: {r: 73.516685, g: 38.9206, b: 10.090526, a: 1}
+    - _ShineColor: {r: 33.89676, g: 4.7916875, b: 13.613188, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3812187184690548163
 MonoBehaviour:
