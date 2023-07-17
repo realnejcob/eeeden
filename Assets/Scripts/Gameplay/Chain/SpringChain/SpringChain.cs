@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chain : MonoBehaviour {
-    public bool updateSpringInEditor = true;
-
-    [Header("References:")]
-    [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private Transform startPoint;
-    [SerializeField] private Transform endPoint;
-    [SerializeField] private List<ChainLink> chainLinks;
+public class SpringChain : ChainBase {
+    private List<SpringChainLink> chainLinks = new List<SpringChainLink>();
 
     [Header("Spring Settings:")]
-    [SerializeField] private int chainResolution = 8;
     [Range(0, 1)] [SerializeField] private float velocityTransferSpread = 1;
     [Range(0, 5)] [SerializeField] private float stiffness = 0.25f;
     [Range(0, 1)] [SerializeField] private float decay = 0.85f;
@@ -20,10 +13,10 @@ public class Chain : MonoBehaviour {
     private List<float> leftDeltas = new List<float>();
     private List<float> rightDeltas = new List<float>();
 
-    [Header("Debug Variables:")]
+    [Header("Strike Variables:")]
     [SerializeField] private float maxPingForce = 1;
-    [SerializeField] private float swellCount = 10;
-    [SerializeField] private float swellTime = 1;
+    [SerializeField] private int pingPerSecond = 10;
+    [SerializeField] private float swellTimeSeconds = 1;
     [SerializeField] private AnimationCurve swellCurve;
 
     private void Awake() {
@@ -32,12 +25,6 @@ public class Chain : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.A)) {
-            PingMiddleChainLink(maxPingForce);
-        } else if (Input.GetKeyDown(KeyCode.S)) {
-            Swell();
-        }
-
         UpdateChainLinkNeighbours();
         UpdateLineRenderer();
 
@@ -51,12 +38,45 @@ public class Chain : MonoBehaviour {
 #endif
     }
 
-    private void Swell() {
+    public override void BuildChain() {
+        for (int i = 0; i < chainResolution; i++) {
+            leftDeltas.Add(0);
+            rightDeltas.Add(0);
+
+            var increment = (float)1 / (chainResolution - 1) * i;
+            var chainPosition = Vector3.Lerp(startPoint.position, endPoint.position, increment);
+            var newChainLink = CreateChainLink(chainPosition);
+
+            if (i == 0 || i == chainResolution - 1) {
+                newChainLink.IsLocked = true;
+            }
+        }
+    }
+
+    private SpringChainLink CreateChainLink(Vector3 newPosition) {
+        GameObject chainObj = new GameObject("ChainLink");
+        chainObj.transform.position = newPosition;
+        chainObj.transform.parent = gameObject.transform;
+
+        var chainLink = chainObj.AddComponent<SpringChainLink>();
+        chainLink.Initialize(stiffness, decay);
+        chainLinks.Add(chainLink);
+
+        return chainLink;
+    }
+
+    private void PingMiddleChainLink(float force) {
+        var middleChainIdx = GetMiddleChainIdx();
+        chainLinks[middleChainIdx].chainLinkSpring.SetForce(force);
+    }
+
+    public override void DebugSwell() {
         var canPing = true;
-        var increment = 1 / swellCount;
+        var totalPingCount = pingPerSecond * swellTimeSeconds;
+        var increment = 1 / totalPingCount;
         var count = 0;
         var gate = 0f;
-        LeanTween.value(gameObject, 0, 1, swellTime).setOnUpdate((float t) => {
+        LeanTween.value(gameObject, 0, 1, swellTimeSeconds).setOnUpdate((float t) => {
             if (t > gate && canPing) {
                 var force = swellCurve.Evaluate(t) * maxPingForce;
                 if (count % 2 == 0)
@@ -72,41 +92,8 @@ public class Chain : MonoBehaviour {
         });
     }
 
-    private void BuildChain() {
-        for (int i = 0; i < chainResolution; i++) {
-            leftDeltas.Add(0);
-            rightDeltas.Add(0);
-
-            var increment = (float)1 / (chainResolution - 1) * i;
-            var chainPosition = Vector3.Lerp(startPoint.position, endPoint.position, increment);
-            var newChainLink = CreateChainLink(chainPosition);
-
-            if (i == 0 || i == chainResolution - 1) {
-                newChainLink.IsLocked = true;
-            }
-        }
-    }
-
-    private ChainLink CreateChainLink(Vector3 newPosition) {
-        GameObject chainObj = new GameObject("ChainLink");
-        chainObj.transform.position = newPosition;
-        chainObj.transform.parent = gameObject.transform;
-
-        var chainLink = chainObj.AddComponent<ChainLink>();
-        chainLink.Initialize(stiffness, decay);
-        chainLinks.Add(chainLink);
-
-        return chainLink;
-    }
-
-    private void PingMiddleChainLink(float force) {
-        var middleChainIdx = GetMiddleChainIdx();
-        chainLinks[middleChainIdx].chainLinkSpring.SetForce(force);
-    }
-
-    private int GetMiddleChainIdx() {
-        var idx = (chainResolution - 1) / 2;
-        return idx;
+    public override void DebugPing() {
+        PingMiddleChainLink(maxPingForce);
     }
 
     private void UpdateChainLinkNeighbours() {
@@ -135,18 +122,6 @@ public class Chain : MonoBehaviour {
         for (int i = 0;i < lineRenderer.positionCount; i++) {
             var newPos = chainLinks[i].transform.position;
             lineRenderer.SetPosition(i, newPos);
-        }
-    }
-
-    private void OnDrawGizmos() {
-        if (startPoint != null) {
-            Gizmos.color = new Color(0,1,0,0.25f);
-            Gizmos.DrawCube(startPoint.transform.position, Vector3.one * 0.1f);
-        }
-
-        if (endPoint != null) {
-            Gizmos.color = new Color(1,0,0,0.25f);
-            Gizmos.DrawCube(endPoint.transform.position, Vector3.one * 0.1f);
         }
     }
 }

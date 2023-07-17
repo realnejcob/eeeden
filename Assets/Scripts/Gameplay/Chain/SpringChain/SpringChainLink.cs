@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChainLink : MonoBehaviour {
+public class SpringChainLink : MonoBehaviour {
     public bool IsLocked { get; set; } = false;
 
-    public ChainLinkSpring chainLinkSpring;
+    public SpringChainLinkBehaviour chainLinkSpring;
     private Vector3 initialPosition;
 
     public void Initialize(float stiffness, float decay) {
-        chainLinkSpring = new ChainLinkSpring(stiffness, decay);
+        chainLinkSpring = new SpringChainLinkBehaviour(stiffness, decay);
         initialPosition = transform.position;
     }
 
