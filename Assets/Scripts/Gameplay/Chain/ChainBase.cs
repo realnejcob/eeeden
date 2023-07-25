@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class ChainBase : MonoBehaviour {
     public bool updateSpringInEditor = true;
+    public bool buildOnAwake = false;
 
     [Header("ChainBase references:")]
     [SerializeField] protected int chainResolution = 8;
