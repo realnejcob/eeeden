@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Shiftable {
     [Header("Explore Pod Variables:")]
+    [SerializeField] private Animator animator;
     [SerializeField] private float maxSpeed = 8;
     [SerializeField] private float acceleration = 200;
     [SerializeField] private float maxAccelerationForce = 150;
@@ -19,6 +20,12 @@ public class Player : Shiftable {
 
         Move();
         Look();
+        WalkCycle();
+    }
+
+    private void WalkCycle() {
+        var velocity = rb.velocity.magnitude / 8;
+        animator.SetLayerWeight(1, velocity);
     }
 
     private void Look() {

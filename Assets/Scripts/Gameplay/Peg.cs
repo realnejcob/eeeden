@@ -36,9 +36,6 @@ public class Peg : MonoBehaviour, IInteractable {
         if (!IsInUse) {
             SetInUse();
             PegConnectionManager.Instance.ConfigurePeg(this);
-        } else {
-            return false;
-            SetNotInUse();
         }
 
         return true;
