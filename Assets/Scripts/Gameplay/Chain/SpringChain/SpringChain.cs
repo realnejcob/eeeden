@@ -44,7 +44,7 @@ public class SpringChain : ChainBase {
             rightDeltas.Add(0);
 
             var increment = (float)1 / (chainResolution - 1) * i;
-            var chainPosition = Vector3.Lerp(startPoint.position, endPoint.position, increment);
+            var chainPosition = Vector3.Lerp(startAnchor.position, endAnchor.position, increment);
             var newChainLink = CreateChainLink(chainPosition);
 
             if (i == 0 || i == chainResolution - 1) {

@@ -18,11 +18,11 @@ public class ChainCustomEditor : Editor {
             chain.DebugPing();
         }
 
-        if (GUILayout.Button("Swell")) {
+        /*if (GUILayout.Button("Swell")) {
             var monoBehaviour = (MonoBehaviour)target;
             var chain = monoBehaviour.GetComponent<ChainBase>();
             chain.DebugSwell();
-        }
+        }*/
 
         GUILayout.EndHorizontal();
     }

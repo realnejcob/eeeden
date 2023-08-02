@@ -19,6 +19,9 @@ public class CurveChain : ChainBase {
     private LTDescr tween;
 
     private void Awake() {
+        if (!buildOnAwake)
+            return;
+
         BuildChain();
     }
 
@@ -31,7 +34,7 @@ public class CurveChain : ChainBase {
 
         for (int i = 0; i < chainResolution; i++) {
             var increment = (float)1 / (chainResolution - 1) * i;
-            var chainPosition = Vector3.Lerp(startPoint.position, endPoint.position, increment);
+            var chainPosition = Vector3.Lerp(startAnchor.position, endAnchor.position, increment);
             lineRenderer.SetPosition(i, chainPosition);
 
             initPositions.Add(chainPosition);
@@ -59,6 +62,11 @@ public class CurveChain : ChainBase {
         }).setOnComplete(() => {
             resonanceTime = 0;
         });
+    }
+
+    public void SetAnchors(Transform newStartAnchor, Transform newEndAnchor) {
+        startAnchor = newStartAnchor;
+        endAnchor = newEndAnchor;
     }
 
     public override void DebugPing() {

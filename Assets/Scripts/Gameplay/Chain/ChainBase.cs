@@ -9,21 +9,21 @@ public abstract class ChainBase : MonoBehaviour {
     [Header("ChainBase references:")]
     [SerializeField] protected int chainResolution = 8;
     [SerializeField] protected LineRenderer lineRenderer;
-    [SerializeField] protected Transform startPoint;
-    [SerializeField] protected Transform endPoint;
+    [SerializeField] protected Transform startAnchor = null;
+    [SerializeField] protected Transform endAnchor = null;
 
     private void OnDrawGizmos() {
-        if (startPoint == null || endPoint == null)
+        if (startAnchor == null || endAnchor == null)
             return;
 
         Gizmos.color = new Color(1, 1, 0, 0.25f);
-        Gizmos.DrawLine(startPoint.position, endPoint.position);
+        Gizmos.DrawLine(startAnchor.position, endAnchor.position);
 
         Gizmos.color = new Color(0, 1, 0, 0.25f);
-        Gizmos.DrawCube(startPoint.transform.position, Vector3.one * 0.1f);
+        Gizmos.DrawCube(startAnchor.transform.position, Vector3.one * 0.1f);
 
         Gizmos.color = new Color(1, 0, 0, 0.25f);
-        Gizmos.DrawCube(endPoint.transform.position, Vector3.one * 0.1f);
+        Gizmos.DrawCube(endAnchor.transform.position, Vector3.one * 0.1f);
     }
 
     public abstract void DebugPing();

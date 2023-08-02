@@ -14,7 +14,7 @@ public class Interactor : MonoBehaviour {
 
     private void Update() {
         CheckForInteractables();
-        TryInteract();
+        CheckForInput();
 
     }
 
@@ -31,10 +31,10 @@ public class Interactor : MonoBehaviour {
         overlappedCount = overlappedInteractables.Count;
     }
 
-    private void TryInteract() {
+    private void CheckForInput() {
         if (InputManager.Instance.GetGamepad().buttonSouth.wasPressedThisFrame) {
             if (overlappedInteractables.Count > 0) {
-                overlappedInteractables[0].Interact(this);
+                overlappedInteractables[0].TryInteract(this);
             }
         }
     }

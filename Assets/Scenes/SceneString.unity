@@ -1340,6 +1340,7 @@ Transform:
   m_Children:
   - {fileID: 1152956953}
   - {fileID: 574515280}
+  - {fileID: 1823011774}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1545,8 +1546,8 @@ MonoBehaviour:
   buildOnAwake: 0
   chainResolution: 5
   lineRenderer: {fileID: 1698329727}
-  startPoint: {fileID: 1387805301}
-  endPoint: {fileID: 1185716237}
+  startAnchor: {fileID: 0}
+  endAnchor: {fileID: 0}
   velocityTransferSpread: 0.4
   stiffness: 0.1
   decay: 0.9
@@ -1586,6 +1587,54 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 0
     m_RotationOrder: 4
+--- !u!1 &1823011773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823011774}
+  - component: {fileID: 1823011775}
+  m_Layer: 0
+  m_Name: PegConnectionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1823011774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823011773}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1602227229}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1823011775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823011773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101e8e67ae6b99d4dbd142fc4d42ef7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStartingPeg: {fileID: 0}
+  currentEndingPeg: {fileID: 0}
+  curveChainPrefab: {fileID: 3151865869029799229, guid: b9a0b9d2dbcd84d7ca0fc66f79fb0a22, type: 3}
+  pegConnections: []
 --- !u!1 &1828791113
 GameObject:
   m_ObjectHideFlags: 0
@@ -2082,14 +2131,6 @@ PrefabInstance:
     - target: {fileID: 2692127532141596954, guid: b9a0b9d2dbcd84d7ca0fc66f79fb0a22, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3151865869029799229, guid: b9a0b9d2dbcd84d7ca0fc66f79fb0a22, type: 3}
-      propertyPath: endPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3151865869029799229, guid: b9a0b9d2dbcd84d7ca0fc66f79fb0a22, type: 3}
-      propertyPath: startPoint
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7262341720427612550, guid: b9a0b9d2dbcd84d7ca0fc66f79fb0a22, type: 3}
       propertyPath: m_Name
