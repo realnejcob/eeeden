@@ -197,102 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ec5513372a4714693f7fa4397d9bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateSpringInEditor: 1
+  updateSpringInEditor: 0
   buildOnAwake: 0
-  chainResolution: 13
+  autoPlay: 1
+  chainResolution: 9
   lineRenderer: {fileID: 4056152318096376358}
-  startPoint: {fileID: 0}
-  endPoint: {fileID: 0}
-  maxPingForce: 0.25
-  pingDuration: 6
-  animationSpeed: 15
-  shapeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.09468599
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.4995169
-      outWeight: 0.5014492
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.14106286
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  resonanceCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: -1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: -1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 0
-    m_RotationOrder: 4
-  pingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -126.08809
-      outSlope: -126.08809
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0
-      outWeight: 0.008902952
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.021142302
-      outSlope: -0.021142302
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.07922703
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  startAnchor: {fileID: 0}
+  endAnchor: {fileID: 0}
+  preset: {fileID: 11400000, guid: 7964dc364441918459ba94cee6ce101f, type: 2}

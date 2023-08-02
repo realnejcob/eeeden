@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class CurveChain : ChainBase {
     [Header("Spring Settings:")]
-    [SerializeField] private float maxPingForce = 0.25f;
-    [SerializeField] private float pingDuration = 1;
-    [SerializeField] private float animationSpeed = 0.25f;
-    [SerializeField] private AnimationCurve shapeCurve;
-    [SerializeField] private AnimationCurve resonanceCurve;
-    [SerializeField] private AnimationCurve pingCurve;
+    [SerializeField] private CurveChainPreset preset;
 
     private List<Vector3> initPositions = new List<Vector3>();
 
@@ -23,6 +18,12 @@ public class CurveChain : ChainBase {
             return;
 
         BuildChain();
+    }
+
+    private void Start() {
+        if (autoPlay) {
+            AutoPlay();
+        }
     }
 
     public void Update() {
@@ -44,10 +45,20 @@ public class CurveChain : ChainBase {
     private void UpdateChain() {
         for (int i = 0; i < chainResolution; i++) {
             var increment = i / (float)(chainResolution-1);
-            var newY = (shapeCurve.Evaluate(increment) * maxPingForce) * resonanceCurve.Evaluate(resonanceTime) * amount;
+            var newY = (preset.shapeCurve.Evaluate(increment) * preset.maxForce) * preset.movementCurve.Evaluate(resonanceTime) * amount;
             var initPos = initPositions[i];
             var newPos = new Vector3(initPos.x, initPos.y + newY, initPos.z);
             lineRenderer.SetPosition(i, newPos);
+        }
+    }
+
+    private void AutoPlay() {
+        StartCoroutine(Co());
+
+        IEnumerator Co() {
+            Ping();
+            yield return new WaitForSeconds(preset.duration);
+            StartCoroutine(Co());
         }
     }
 
@@ -56,9 +67,9 @@ public class CurveChain : ChainBase {
             LeanTween.cancel(tween.id);
         }
 
-        tween = LeanTween.value(gameObject, 0, 1, pingDuration).setOnUpdate((float time) => {
-            resonanceTime += animationSpeed * Time.deltaTime;
-            amount = pingCurve.Evaluate(time);
+        tween = LeanTween.value(gameObject, 0, 1, preset.duration).setOnUpdate((float time) => {
+            resonanceTime += preset.speed * Time.deltaTime;
+            amount = preset.forceCurve.Evaluate(time);
         }).setOnComplete(() => {
             resonanceTime = 0;
         });

@@ -5,12 +5,13 @@ using UnityEngine;
 public abstract class ChainBase : MonoBehaviour {
     public bool updateSpringInEditor = true;
     public bool buildOnAwake = false;
+    public bool autoPlay = false;
 
     [Header("ChainBase references:")]
     [SerializeField] protected int chainResolution = 8;
     [SerializeField] protected LineRenderer lineRenderer;
-    [SerializeField] protected Transform startAnchor = null;
-    [SerializeField] protected Transform endAnchor = null;
+    [ReadOnly] [SerializeField] protected Transform startAnchor = null;
+    [ReadOnly] [SerializeField] protected Transform endAnchor = null;
 
     private void OnDrawGizmos() {
         if (startAnchor == null || endAnchor == null)

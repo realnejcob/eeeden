@@ -1544,6 +1544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updateSpringInEditor: 1
   buildOnAwake: 0
+  autoPlay: 0
   chainResolution: 5
   lineRenderer: {fileID: 1698329727}
   startAnchor: {fileID: 0}
