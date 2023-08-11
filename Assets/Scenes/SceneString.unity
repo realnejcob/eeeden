@@ -2202,6 +2202,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Robe
       objectReference: {fileID: 0}
+    - target: {fileID: 1032549189898223692, guid: 39da112d0b63fd54a91bf4e1b296c1cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758396943375184717, guid: 39da112d0b63fd54a91bf4e1b296c1cf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 370aca74feb5054449e7e2bf4891c9da, type: 2}
+    - target: {fileID: 3155745928257511121, guid: 39da112d0b63fd54a91bf4e1b296c1cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853662639944469904, guid: 39da112d0b63fd54a91bf4e1b296c1cf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 370aca74feb5054449e7e2bf4891c9da, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

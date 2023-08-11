@@ -3,5 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IInteractable {
-    public bool TryInteract(Interactor interactor);
+    public bool PressInteract(Interactor interactor);
+    public bool LongPressInteract(Interactor interactor);
 }

@@ -31,6 +31,25 @@ public class PegConnectionManager : MonoBehaviour {
         }
     }
 
+    public void DeconfigurePeg(Peg peg) {
+        if (currentStartingPeg != null) {
+            ResetCurrentConnections();
+        } else {
+            RemoveConnectionIncludingPeg(peg);
+        }
+    }
+
+    private void RemoveConnectionIncludingPeg(Peg peg) {
+        for (int i = 0; i < pegConnections.Count; i++) {
+            var connection = pegConnections[i];
+            if (connection.HasPeg(peg)) {
+                connection.Kill();
+                pegConnections.Remove(connection);
+                return;
+            }
+        }
+    }
+
     private void CreateConnection() {
         var connection = new PegConnection() { 
             startingPeg = currentStartingPeg,
@@ -56,4 +75,20 @@ public class PegConnection {
     public Peg startingPeg;
     public Peg endingPeg;
     public CurveChain curveChainObj;
+
+    public bool HasPeg(Peg peg) {
+        if (startingPeg == peg) {
+            return true;
+        } else if (endingPeg == peg) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void Kill() {
+        UnityEngine.Object.Destroy(curveChainObj.gameObject);
+        startingPeg.SetNotInUse();
+        endingPeg.SetNotInUse();
+    }
 }

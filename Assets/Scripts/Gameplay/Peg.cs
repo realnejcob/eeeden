@@ -32,12 +32,22 @@ public class Peg : MonoBehaviour, IInteractable {
         return inUseIndicators[randomIdx];
     }
 
-    public bool TryInteract(Interactor interactor) {
+    public bool PressInteract(Interactor interactor) {
         if (!IsInUse) {
             SetInUse();
             PegConnectionManager.Instance.ConfigurePeg(this);
+            return true;
         }
 
-        return true;
+        return false;
+    }
+
+    public bool LongPressInteract(Interactor interactor) {
+        if (IsInUse) {
+            SetNotInUse();
+            PegConnectionManager.Instance.DeconfigurePeg(this);
+        }
+
+        return false;
     }
 }
