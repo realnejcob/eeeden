@@ -34,4 +34,8 @@ public class PodManager : MonoBehaviour {
     public CameraFollow GetCameraFollow() {
         return cameraFollow;
     }
+
+    public Shiftable GetActivePod() {
+        return activePod;
+    }
 }

@@ -958,7 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6e2af2d85f5d44e925fc796a97d4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rideHeight: 1.025
+  rideHeight: 1.05
   rideSpringStrength: 250
   rideSpringDamper: 1
   rayLength: 5

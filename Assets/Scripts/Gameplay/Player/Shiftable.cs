@@ -138,7 +138,7 @@ public class Shiftable : MonoBehaviour {
         if (!IsControlling)
             return;
 
-        Gizmos.color = new Color(0, 1, 0, 0.05f);
+        Gizmos.color = new Color(1, 1, 1, 0.01f);
         Gizmos.DrawSphere(transform.position + (Vector3.up), shiftRadius);
     }
 }
