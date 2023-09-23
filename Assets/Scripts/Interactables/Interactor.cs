@@ -19,7 +19,7 @@ public class Interactor : MonoBehaviour {
     public int overlappedCount = 0;
     private List<IInteractable> overlappedInteractables = new List<IInteractable>();
 
-    private void Awake() {
+    private void Start() {
         interactButton = InputManager.Instance.GetGamepad().buttonSouth;
     }
 
