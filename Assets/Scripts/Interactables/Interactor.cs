@@ -29,7 +29,12 @@ public class Interactor : MonoBehaviour {
     }
 
     private void CheckForInteractables() {
+        if (overlappedCount > 0) {
+            overlappedInteractables[0].HoverDisable(this);
+        }
+
         overlappedInteractables.Clear();
+
         var colliders = Physics.OverlapSphere(overlapPoint.position, overlapRadius, mask).ToList();
         foreach (var col in colliders) {
             if (col.isTrigger) {
@@ -39,6 +44,10 @@ public class Interactor : MonoBehaviour {
         }
 
         overlappedCount = overlappedInteractables.Count;
+
+        if (overlappedCount > 0) {
+            overlappedInteractables[0].HoverEnable(this);
+        }
     }
 
     private void CheckForInput() {

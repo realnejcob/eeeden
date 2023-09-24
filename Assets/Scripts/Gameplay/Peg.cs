@@ -9,6 +9,16 @@ public class Peg : MonoBehaviour, IInteractable {
     [SerializeField] private List<GameObject> inUseIndicators = new List<GameObject>();
     private GameObject currentInUseIndicator;
 
+    [SerializeField] private GameObject hoverIndicator;
+
+    private void Start() {
+        Initialize();
+    }
+
+    private void Initialize() {
+        hoverIndicator.SetActive(false);
+    }
+
     public void SetInUse() {
         if (IsInUse)
             return;
@@ -48,6 +58,16 @@ public class Peg : MonoBehaviour, IInteractable {
             PegConnectionManager.Instance.DeconfigurePeg(this);
         }
 
+        return false;
+    }
+
+    public bool HoverEnable(Interactor interactor) {
+        hoverIndicator.SetActive(true);
+        return false;
+    }
+
+    public bool HoverDisable(Interactor interactor) {
+        hoverIndicator.SetActive(false);
         return false;
     }
 }

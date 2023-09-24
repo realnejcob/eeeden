@@ -9,6 +9,7 @@ public class CurveChain : ChainBase {
 
     private float resonanceTime = 0;
     private float amount = 0;
+    private float displacementModifier = 1;
 
     private LTDescr tween;
 
@@ -22,11 +23,12 @@ public class CurveChain : ChainBase {
     }
 
     public void Update() {
-        UpdateChain();
+        
     }
 
     public void FixedUpdate() {
         UpdateDisplacement();
+        UpdateChain();
     }
 
     public override void BuildChain() {
@@ -59,7 +61,7 @@ public class CurveChain : ChainBase {
 
             var newPos = new Vector3(
                 initPos.x + displaceOffset.x,
-                initPos.y + GetAnimatedY(normalizedIdx),
+                initPos.y + (GetAnimatedY(normalizedIdx) * displacementModifier),
                 initPos.z + displaceOffset.z);
 
             lineRenderer.SetPosition(i, newPos);
@@ -70,13 +72,15 @@ public class CurveChain : ChainBase {
         if (chainCollider.IsTouching) {
             var playerPos = PodManager.Instance.GetActivePod().transform.position;
             middleAnchor.transform.position = new Vector3(playerPos.x, middleAnchorInitPosition.y, playerPos.z) + chainCollider.enterDirection;
+            displacementModifier = 0;
         } else {
             middleAnchor.transform.position = middleAnchorInitPosition;
+            displacementModifier = 1;
         }
     }
 
     private float GetAnimatedY(float increment) {
-       return (preset.shapeCurve.Evaluate(increment) * preset.maxForce) * preset.movementCurve.Evaluate(resonanceTime) * amount;
+       return preset.shapeCurve.Evaluate(increment) * preset.maxForce * preset.movementCurve.Evaluate(resonanceTime) * amount;
     }
 
     private Vector3 GetDisplaceOffset(float increment) {

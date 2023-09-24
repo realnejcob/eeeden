@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField] private Camera cam;
     private float desiredCamSize = 6;
     private float defaultCamSize = 6;
-    private float zoomOutCamSize = 10;
+    private float zoomOutCamSize = 8;
     private float currentCamSize;
 
     private float camSizeZoomTime = 0.25f;

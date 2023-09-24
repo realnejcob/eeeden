@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionPoint: {x: 0, y: 0, z: 0}
-  direction: {x: 0, y: 0, z: 0}
+  enterDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &5373943258239613609
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateSpringInEditor: 0
-  autoPlay: 0
+  autoPlay: 1
   chainResolution: 9
   lineRenderer: {fileID: 4056152318096376358}
   chainCollider: {fileID: 5150221144889121655}
