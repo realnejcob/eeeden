@@ -51,11 +51,10 @@ public class PegConnectionManager : MonoBehaviour {
     }
 
     private void CreateConnection() {
-        var connection = new PegConnection() { 
-            startingPeg = currentStartingPeg,
-            endingPeg = currentEndingPeg,
-            curveChainObj = Instantiate(curveChainPrefab)
-        };
+        var newCurveChain = Instantiate(curveChainPrefab);
+        newCurveChain.transform.SetParent(currentStartingPeg.transform);
+
+        var connection = new PegConnection(currentStartingPeg, currentEndingPeg, newCurveChain);
 
         connection.curveChainObj.transform.position = connection.startingPeg.transform.position;
         connection.curveChainObj.SetAnchors(connection.startingPeg.Anchor, connection.endingPeg.Anchor);
@@ -75,6 +74,12 @@ public class PegConnection {
     public Peg startingPeg;
     public Peg endingPeg;
     public CurveChain curveChainObj;
+
+    public PegConnection(Peg _startingPeg, Peg _endingPeg, CurveChain _curveChainPrefab) {
+        startingPeg = _startingPeg;
+        endingPeg = _endingPeg;
+        curveChainObj = _curveChainPrefab;
+    }
 
     public bool HasPeg(Peg peg) {
         if (startingPeg == peg) {

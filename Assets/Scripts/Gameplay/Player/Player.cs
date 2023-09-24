@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : Shiftable {
     [Header("Explore Pod Variables:")]
     [SerializeField] private Animator animator;
-    [SerializeField] private float maxSpeed = 8;
+    [SerializeField] private float maxSpeedNormal = 8;
+    private float desiredSpeed;
     [SerializeField] private float acceleration = 200;
     [SerializeField] private float maxAccelerationForce = 150;
     private Vector3 m_UnitGoal;
@@ -13,6 +14,10 @@ public class Player : Shiftable {
 
     [SerializeField] private float turnSmoothTime = 0.5f;
     private float rotationVelocity;
+
+    private void Start() {
+        desiredSpeed = maxSpeedNormal;
+    }
 
     private void FixedUpdate() {
         if (!IsControlling)
@@ -45,12 +50,15 @@ public class Player : Shiftable {
 
         m_UnitGoal = move;
 
-        Vector3 goalVel = m_UnitGoal * maxSpeed;
+        Vector3 goalVel = m_UnitGoal * desiredSpeed;
         m_GoalVel = Vector3.MoveTowards(m_GoalVel, goalVel, acceleration * Time.deltaTime);
 
         Vector3 neededAccel = (m_GoalVel - rb.velocity) / Time.deltaTime;
         neededAccel = Vector3.ClampMagnitude(neededAccel, maxAccelerationForce);
 
         rb.AddForce(Vector3.Scale(neededAccel * rb.mass, new Vector3(1, 0, 1)));
+    }
+
+    public void SetDisplacing(bool displacing) {
     }
 }

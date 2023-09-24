@@ -9,10 +9,12 @@ public abstract class ChainBase : MonoBehaviour {
     [Header("ChainBase references:")]
     [SerializeField] protected int chainResolution = 8;
     [SerializeField] protected LineRenderer lineRenderer;
-    [SerializeField] protected Transform chainCollider;
+    [SerializeField] protected CurveChainColliderHelper chainCollider;
     [ReadOnly] [SerializeField] protected Transform startAnchor = null;
     [ReadOnly] [SerializeField] protected Transform middleAnchor = null;
     [ReadOnly] [SerializeField] protected Transform endAnchor = null;
+
+    protected Vector3 middleAnchorInitPosition;
 
     private void OnDrawGizmos() {
         if (startAnchor == null || endAnchor == null)

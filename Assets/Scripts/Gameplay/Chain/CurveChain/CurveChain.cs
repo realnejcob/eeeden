@@ -14,7 +14,7 @@ public class CurveChain : ChainBase {
 
     private void Start() {
         BuildChain();
-        BuildCollider();
+        ConfigureCollider();
 
         if (autoPlay) {
             AutoPlay();
@@ -23,6 +23,10 @@ public class CurveChain : ChainBase {
 
     public void Update() {
         UpdateChain();
+    }
+
+    public void FixedUpdate() {
+        UpdateDisplacement();
     }
 
     public override void BuildChain() {
@@ -38,16 +42,12 @@ public class CurveChain : ChainBase {
         }
     }
 
-    public void BuildCollider() {
-        chainCollider.position = new Vector3(middleAnchor.position.x, 0, middleAnchor.position.z);
-
-        var dummyTransform = new GameObject("dummy").transform;
-        dummyTransform.SetParent(transform);
-        dummyTransform.position = new Vector3(startAnchor.position.x, 0, startAnchor.position.z);
-        chainCollider.LookAt(dummyTransform);
+    public void ConfigureCollider() {
+        chainCollider.transform.position = middleAnchor.position;
+        chainCollider.transform.LookAt(endAnchor, chainCollider.transform.up);
 
         var length = Vector3.Distance(startAnchor.position, endAnchor.position);
-        chainCollider.localScale = chainCollider.localScale + (Vector3.forward * length);
+        chainCollider.transform.localScale = chainCollider.transform.localScale + (Vector3.forward * length);
     }
 
     private void UpdateChain() {
@@ -63,6 +63,15 @@ public class CurveChain : ChainBase {
                 initPos.z + displaceOffset.z);
 
             lineRenderer.SetPosition(i, newPos);
+        }
+    }
+
+    private void UpdateDisplacement() {
+        if (chainCollider.IsTouching) {
+            var playerPos = PodManager.Instance.GetActivePod().transform.position;
+            middleAnchor.transform.position = new Vector3(playerPos.x, middleAnchorInitPosition.y, playerPos.z) + chainCollider.enterDirection;
+        } else {
+            middleAnchor.transform.position = middleAnchorInitPosition;
         }
     }
 
@@ -105,11 +114,17 @@ public class CurveChain : ChainBase {
     public void SetAnchors(Transform newStartAnchor, Transform newEndAnchor) {
         startAnchor = newStartAnchor;
         endAnchor = newEndAnchor;
+        middleAnchor = CreateMiddleAnchor();
+    }
 
+    private Transform CreateMiddleAnchor() {
         var newMiddleAnchor = new GameObject("Middle Anchor");
         newMiddleAnchor.transform.SetParent(transform);
         newMiddleAnchor.transform.position = Vector3.Lerp(startAnchor.position, endAnchor.position, 0.5f);
-        middleAnchor = newMiddleAnchor.transform;
+
+        middleAnchorInitPosition = newMiddleAnchor.transform.position;
+
+        return newMiddleAnchor.transform;
     }
 
     public override void DebugPing() {
