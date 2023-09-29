@@ -10,6 +10,7 @@ public abstract class ChainBase : MonoBehaviour {
     [SerializeField] protected int chainResolution = 8;
     [SerializeField] protected LineRenderer lineRenderer;
     [SerializeField] protected CurveChainColliderHelper chainCollider;
+    [SerializeField] protected float breakLengthOffset = 0.5f;
     [ReadOnly] [SerializeField] protected Transform startAnchor = null;
     [ReadOnly] [SerializeField] protected Transform middleAnchor = null;
     [ReadOnly] [SerializeField] protected Transform endAnchor = null;

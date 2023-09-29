@@ -5,10 +5,12 @@ using UnityEngine;
 public class CurveChainColliderHelper : MonoBehaviour {
     public bool IsTouching { get;private set; }
     private string comparedTag = "StringDisplacementCollider";
-    private Collider boxCollider;
+    private BoxCollider boxCollider;
 
     public Vector3 collisionPoint;
     public Vector3 enterDirection;
+
+    public bool isOutOfBounds = false;
 
     private void Awake() {
         boxCollider = GetComponent<BoxCollider>();
@@ -18,15 +20,14 @@ public class CurveChainColliderHelper : MonoBehaviour {
         if (other.CompareTag(comparedTag)) {
             IsTouching = true;
 
-            var hit = boxCollider.ClosestPoint(other.transform.position);
-            enterDirection = (hit - other.transform.position) * 1.25f;
+            var hit = GetCollisionPoint(other);
+            enterDirection = (hit - other.transform.position);
         }
-
     }
 
     private void OnTriggerStay(Collider other) {
         if (other.CompareTag(comparedTag)) {
-            collisionPoint = boxCollider.ClosestPoint(other.transform.position);
+            collisionPoint = GetCollisionPoint(other);
         }
     }
 
@@ -34,11 +35,14 @@ public class CurveChainColliderHelper : MonoBehaviour {
         if (other.CompareTag(comparedTag)) {
             IsTouching = false;
 
-            var hit = boxCollider.ClosestPoint(other.transform.position);
+            var hit = GetCollisionPoint(other);
             var exitDirection = hit - other.transform.position;
 
 
-            if (CheckWillBreak(enterDirection, exitDirection)) {
+            print(enterDirection);
+            print(exitDirection);
+
+            if (GetIsExitingOppositeSide(enterDirection, exitDirection)) {
                 PegConnectionManager.Instance.DeconfigurePeg(transform.parent.parent.GetComponent<Peg>());
             }
 
@@ -47,8 +51,13 @@ public class CurveChainColliderHelper : MonoBehaviour {
         }
     }
 
-    private bool CheckWillBreak(Vector3 enterDir, Vector3 exitDir) {
-        if (enterDir.x > 0 && exitDir.x < 0 || enterDir.x < 0 && exitDir.x > 0) {
+    private Vector3 GetCollisionPoint(Collider other) {
+        var point = boxCollider.ClosestPoint(other.transform.position);
+        return point;
+    }
+
+    private bool GetIsExitingOppositeSide(Vector3 enterDir, Vector3 exitDir) {
+        if (Vector3.Dot(enterDir,exitDir) < 0) {
             return true;
         }
 

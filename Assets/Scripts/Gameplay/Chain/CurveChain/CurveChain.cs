@@ -13,17 +13,19 @@ public class CurveChain : ChainBase {
 
     private LTDescr tween;
 
+    public float InitialLength { get; private set; } = 0;
+    public float BreakLength { get; private set; } = 0;
+
     private void Start() {
         BuildChain();
         ConfigureCollider();
 
+        InitialLength = GetCurrentLength();
+        BreakLength = InitialLength += breakLengthOffset;
+
         if (autoPlay) {
             AutoPlay();
         }
-    }
-
-    public void Update() {
-        
     }
 
     public void FixedUpdate() {
@@ -42,6 +44,13 @@ public class CurveChain : ChainBase {
 
             lineRenderer.SetPosition(i, chainPosition);
         }
+    }
+
+    private float GetCurrentLength() {
+        var length = 0f;
+        length += Vector3.Distance(startAnchor.position, middleAnchor.position);
+        length += Vector3.Distance(middleAnchor.position, endAnchor.position);
+        return length;
     }
 
     public void ConfigureCollider() {
@@ -115,7 +124,7 @@ public class CurveChain : ChainBase {
         });
     }
 
-    public void SetAnchors(Transform newStartAnchor, Transform newEndAnchor) {
+    public void ConfigureAnchors(Transform newStartAnchor, Transform newEndAnchor) {
         startAnchor = newStartAnchor;
         endAnchor = newEndAnchor;
         middleAnchor = CreateMiddleAnchor();

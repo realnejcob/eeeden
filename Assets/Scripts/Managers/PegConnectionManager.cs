@@ -57,8 +57,7 @@ public class PegConnectionManager : MonoBehaviour {
         var connection = new PegConnection(currentStartingPeg, currentEndingPeg, newCurveChain);
 
         connection.curveChainObj.transform.position = connection.startingPeg.transform.position;
-        connection.curveChainObj.SetAnchors(connection.startingPeg.Anchor, connection.endingPeg.Anchor);
-        connection.curveChainObj.BuildChain();
+        connection.curveChainObj.ConfigureAnchors(connection.startingPeg.Anchor, connection.endingPeg.Anchor);
 
         pegConnections.Add(connection);
     }
