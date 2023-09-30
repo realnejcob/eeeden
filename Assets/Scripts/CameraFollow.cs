@@ -5,9 +5,9 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour {
 
     [SerializeField] private Camera cam;
-    private float desiredCamSize = 6;
-    private float defaultCamSize = 6;
-    private float zoomOutCamSize = 8;
+    private float desiredCamSize = 5;
+    private float defaultCamSize = 5;
+    private float zoomOutCamSize = 6;
     private float currentCamSize;
 
     private float camSizeZoomTime = 0.25f;
@@ -40,7 +40,7 @@ public class CameraFollow : MonoBehaviour {
 
     private void SetCamSize() {
         currentCamSize = Mathf.SmoothDamp(currentCamSize, desiredCamSize, ref camSizeVel, camSizeZoomTime);
-        cam.orthographicSize = currentCamSize;
+        cam.fieldOfView = currentCamSize;
     }
 
     private void FixedUpdate() {

@@ -275,7 +275,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionPoint: {x: 0, y: 0, z: 0}
   enterDirection: {x: 0, y: 0, z: 0}
-  isOutOfBounds: 0
 --- !u!1 &5373943258239613609
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,11 +390,11 @@ MonoBehaviour:
   chainResolution: 9
   lineRenderer: {fileID: 4056152318096376358}
   chainCollider: {fileID: 5150221144889121655}
-  breakLengthOffset: 0.5
+  breakLengthOffset: 0.25
   startAnchor: {fileID: 0}
   middleAnchor: {fileID: 0}
   endAnchor: {fileID: 0}
-  preset: {fileID: 11400000, guid: 7964dc364441918459ba94cee6ce101f, type: 2}
+  preset: {fileID: 11400000, guid: 3deb81800d9476648975d4c21c07ace7, type: 2}
 --- !u!1 &7848507096421351384
 GameObject:
   m_ObjectHideFlags: 0

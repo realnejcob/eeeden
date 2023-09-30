@@ -1,54 +1,71 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CurveChainColliderHelper : MonoBehaviour {
-    public bool IsTouching { get;private set; }
+    public bool IsTouching { get; private set; }
+    public bool IsOutOfBounds { get; private set; }
+
     private string comparedTag = "StringDisplacementCollider";
     private BoxCollider boxCollider;
 
     public Vector3 collisionPoint;
     public Vector3 enterDirection;
 
-    public bool isOutOfBounds = false;
+    private Collider connectedCollider;
+
+    public Action OnExitSameSide;
+    public Action OnExitOppositeSide;
 
     private void Awake() {
         boxCollider = GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other) {
+        if (IsOutOfBounds)
+            return;
+
         if (other.CompareTag(comparedTag)) {
             IsTouching = true;
 
-            var hit = GetCollisionPoint(other);
-            enterDirection = (hit - other.transform.position);
+            connectedCollider = other;
+
+            enterDirection = GetDirection(connectedCollider);
         }
     }
 
     private void OnTriggerStay(Collider other) {
-        if (other.CompareTag(comparedTag)) {
-            collisionPoint = GetCollisionPoint(other);
+        if (connectedCollider!= null) {
+            collisionPoint = GetCollisionPoint(connectedCollider);
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.CompareTag(comparedTag)) {
-            IsTouching = false;
-
-            var hit = GetCollisionPoint(other);
-            var exitDirection = hit - other.transform.position;
-
-
-            print(enterDirection);
-            print(exitDirection);
+        if (connectedCollider != null) {
+            var exitDirection = GetDirection(connectedCollider);
 
             if (GetIsExitingOppositeSide(enterDirection, exitDirection)) {
-                PegConnectionManager.Instance.DeconfigurePeg(transform.parent.parent.GetComponent<Peg>());
-            }
+                OnExitOppositeSide?.Invoke();
 
-            collisionPoint = Vector3.zero;
-            enterDirection = Vector3.zero;
+                IsOutOfBounds = true;
+            } else {
+                OnExitSameSide?.Invoke();
+
+                IsTouching = false;
+                IsOutOfBounds = false;
+
+                collisionPoint = Vector3.zero;
+                enterDirection = Vector3.zero;
+                connectedCollider = null;
+            }
         }
+    }
+
+    private Vector3 GetDirection(Collider _connectedCollider) {
+        var direction = GetCollisionPoint(_connectedCollider) - _connectedCollider.transform.position;
+        return direction;
     }
 
     private Vector3 GetCollisionPoint(Collider other) {
@@ -57,7 +74,7 @@ public class CurveChainColliderHelper : MonoBehaviour {
     }
 
     private bool GetIsExitingOppositeSide(Vector3 enterDir, Vector3 exitDir) {
-        if (Vector3.Dot(enterDir,exitDir) < 0) {
+        if (Vector3.Dot(enterDir, exitDir) < 0) {
             return true;
         }
 

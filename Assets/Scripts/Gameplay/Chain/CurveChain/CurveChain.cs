@@ -21,7 +21,11 @@ public class CurveChain : ChainBase {
         ConfigureCollider();
 
         InitialLength = GetCurrentLength();
-        BreakLength = InitialLength += breakLengthOffset;
+        BreakLength = InitialLength + breakLengthOffset;
+
+        chainCollider.OnExitSameSide += Ping;
+
+        Ping();
 
         if (autoPlay) {
             AutoPlay();
@@ -31,6 +35,18 @@ public class CurveChain : ChainBase {
     public void FixedUpdate() {
         UpdateDisplacement();
         UpdateChain();
+    }
+
+    public void Update() {
+        CheckForDestroy();
+    }
+
+    private void CheckForDestroy() {
+        if (chainCollider.IsOutOfBounds) {
+            if (GetCurrentLength() > BreakLength) {
+                PegConnectionManager.Instance.DeconfigurePeg(transform.parent.GetComponent<Peg>());
+            }
+        }
     }
 
     public override void BuildChain() {

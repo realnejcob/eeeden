@@ -943,7 +943,7 @@ MonoBehaviour:
   shiftDisplay: {fileID: 5522203097079320142}
   shiftRaycastHelper: {fileID: 901287611040343249}
   animator: {fileID: 4470385692302295299}
-  maxSpeed: 7
+  maxSpeedNormal: 8
   acceleration: 25
   maxAccelerationForce: 60
   turnSmoothTime: 0.1
@@ -1717,7 +1717,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.3
+  m_Radius: 0.35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9081443850362225177
 GameObject:
