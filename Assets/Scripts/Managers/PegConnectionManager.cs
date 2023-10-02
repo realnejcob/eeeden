@@ -35,14 +35,25 @@ public class PegConnectionManager : MonoBehaviour {
         if (currentStartingPeg != null) {
             ResetCurrentConnections();
         } else {
-            RemoveConnectionIncludingPeg(peg);
+            RemoveConnectionByPeg(peg);
         }
     }
 
-    private void RemoveConnectionIncludingPeg(Peg peg) {
+    public void RemoveConnectionByPeg(Peg peg) {
         for (int i = 0; i < pegConnections.Count; i++) {
             var connection = pegConnections[i];
             if (connection.HasPeg(peg)) {
+                connection.Kill();
+                pegConnections.Remove(connection);
+                return;
+            }
+        }
+    }
+
+    public void RemoveConnectionByCurveChain(CurveChain curveChain) {
+        for (int i = 0; i < pegConnections.Count; i++) {
+            var connection = pegConnections[i];
+            if (connection.HasChain(curveChain)) {
                 connection.Kill();
                 pegConnections.Remove(connection);
                 return;
@@ -84,6 +95,14 @@ public class PegConnection {
         if (startingPeg == peg) {
             return true;
         } else if (endingPeg == peg) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool HasChain(CurveChain curveChain) {
+        if (curveChainObj == curveChain) {
             return true;
         }
 

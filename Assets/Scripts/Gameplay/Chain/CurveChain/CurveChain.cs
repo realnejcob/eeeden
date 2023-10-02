@@ -44,7 +44,7 @@ public class CurveChain : ChainBase {
     private void CheckForDestroy() {
         if (chainCollider.IsOutOfBounds) {
             if (GetCurrentLength() > BreakLength) {
-                PegConnectionManager.Instance.DeconfigurePeg(transform.parent.GetComponent<Peg>());
+                PegConnectionManager.Instance.RemoveConnectionByCurveChain(this);
             }
         }
     }
