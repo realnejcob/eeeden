@@ -6,7 +6,8 @@ using UnityEngine.InputSystem.Controls;
 
 public class Interactor : MonoBehaviour {
     public bool CanInteract { get; set; } = true;
-    private ButtonControl interactButton;
+    private ButtonControl southButton;
+    private ButtonControl eastButton;
 
     [SerializeField] private Transform overlapPoint;
     [SerializeField] private float overlapRadius;
@@ -20,7 +21,8 @@ public class Interactor : MonoBehaviour {
     private List<IInteractable> overlappedInteractables = new List<IInteractable>();
 
     private void Start() {
-        interactButton = InputManager.Instance.GetGamepad().buttonSouth;
+        southButton = InputManager.Instance.GetGamepad().buttonSouth;
+        eastButton = InputManager.Instance.GetGamepad().buttonEast;
     }
 
     private void Update() {
@@ -51,7 +53,7 @@ public class Interactor : MonoBehaviour {
     }
 
     private void CheckForInput() {
-        if (interactButton.wasReleasedThisFrame) {
+        if (southButton.wasReleasedThisFrame) {
             CanInteract = true;
             ResetHold();
         }
@@ -59,7 +61,7 @@ public class Interactor : MonoBehaviour {
         if (!CanInteract)
             return;
 
-        if (interactButton.wasPressedThisFrame) {
+        if (southButton.wasPressedThisFrame) {
             if (!HasInteractable())
                 return;
 
@@ -70,10 +72,21 @@ public class Interactor : MonoBehaviour {
             }
         }
 
+        if (eastButton.wasPressedThisFrame) {
+            if (!HasInteractable())
+                return;
+
+            var hasInteracted = overlappedInteractables[0].PressInteractAlt(this);
+            if (hasInteracted) {
+                CanInteract = false;
+                return;
+            }
+        }
+
         if (!canHold)
             return;
 
-        if (interactButton.isPressed) {
+        if (southButton.isPressed) {
             t += Time.deltaTime;
             if (t >= holdSeconds) {
                 if (HasInteractable()) {

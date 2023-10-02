@@ -21,13 +21,15 @@ public class PegConnectionManager : MonoBehaviour {
         }
     }
 
-    public void ConfigurePeg(Peg newPeg) {
+    public void AddToCurrentPeg(Peg newPeg) {
         if (currentStartingPeg == null) {
             currentStartingPeg = newPeg;
         } else {
-            currentEndingPeg = newPeg;
-            CreateConnection();
-            ResetCurrentConnections();
+            if (!IsConnectionCreated(new Peg[] { currentStartingPeg, newPeg })){
+                currentEndingPeg = newPeg;
+                CreateConnection();
+                ResetCurrentConnections();
+            }
         }
     }
 
@@ -39,12 +41,16 @@ public class PegConnectionManager : MonoBehaviour {
         }
     }
 
+    private void RemoveConnection(PegConnection connection) {
+        pegConnections.Remove(connection);
+        connection.Destroy();
+    }
+
     public void RemoveConnectionByPeg(Peg peg) {
         for (int i = 0; i < pegConnections.Count; i++) {
             var connection = pegConnections[i];
             if (connection.HasPeg(peg)) {
-                connection.Kill();
-                pegConnections.Remove(connection);
+                RemoveConnection(connection);
                 return;
             }
         }
@@ -54,8 +60,7 @@ public class PegConnectionManager : MonoBehaviour {
         for (int i = 0; i < pegConnections.Count; i++) {
             var connection = pegConnections[i];
             if (connection.HasChain(curveChain)) {
-                connection.Kill();
-                pegConnections.Remove(connection);
+                RemoveConnection(connection);
                 return;
             }
         }
@@ -73,9 +78,19 @@ public class PegConnectionManager : MonoBehaviour {
         pegConnections.Add(connection);
     }
 
-    private void ResetCurrentConnections() {
+    public void ResetCurrentConnections() {
         currentStartingPeg = null;
         currentEndingPeg = null;
+    }
+
+    private bool IsConnectionCreated(Peg[] pegs) {
+        foreach (var connection in pegConnections) {
+            if (connection.HasPegs(pegs)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
@@ -109,9 +124,17 @@ public class PegConnection {
         return false;
     }
 
-    public void Kill() {
+    public bool HasPegs(Peg[] pegs) {
+        if (pegs[0] == startingPeg || pegs[0] == endingPeg) {
+            if (pegs[1] == startingPeg || pegs[1] == endingPeg) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void Destroy() {
         UnityEngine.Object.Destroy(curveChainObj.gameObject);
-        startingPeg.SetNotInUse();
-        endingPeg.SetNotInUse();
     }
 }
