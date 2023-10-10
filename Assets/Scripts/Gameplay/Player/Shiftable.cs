@@ -44,7 +44,7 @@ public class Shiftable : MonoBehaviour {
         //rb.isKinematic = false;
 
         canDisplayShiftAOE = true;
-        shiftDisplay.gameObject.SetActive(true);
+        shiftDisplay.gameObject.SetActive(false);
         shiftRaycastHelper.gameObject.SetActive(true);
     }
 
@@ -60,6 +60,8 @@ public class Shiftable : MonoBehaviour {
 
 
     private void LateUpdate() {
+        return;
+
         ShiftAreaOfEffectDisplay();
 
         if (!IsControlling)

@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour {
     public Vector2 LeftStickRaw { get; private set; }
     public Vector2 RightStickRaw { get; private set; }
 
-    [SerializeField] private Camera cam;
+    private Camera cam;
 
     private void Awake() {
         if (Instance == null) {
@@ -20,6 +20,10 @@ public class InputManager : MonoBehaviour {
         }
 
         gamepad = InputSystem.GetDevice<Gamepad>();
+    }
+
+    private void Start() {
+        cam = Camera.main;
     }
 
     private void Update() {
@@ -47,5 +51,16 @@ public class InputManager : MonoBehaviour {
             inputDir = inputDir.normalized;
 
         return inputDir;
+    }
+
+    public bool IsRightStickInDeadZone() {
+        var rightStickX = RightStickRaw.x;
+        var rightStickY = RightStickRaw.y;
+
+        if (rightStickX == 0 && rightStickY == 0) {
+            return true;
+        }
+
+        return false;
     }
 }

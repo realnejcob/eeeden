@@ -6,28 +6,42 @@ using UnityEngine.InputSystem.Controls;
 
 public class Interactor : MonoBehaviour {
     public bool CanInteract { get; set; } = true;
-    private ButtonControl southButton;
-    private ButtonControl eastButton;
+    public ButtonControl SouthButton { get; private set; }
+    public ButtonControl EastButton { get; private set; }
+    public ButtonControl LeftShoulder { get; private set; }
+    public ButtonControl RightShoulder { get; private set; }
+    public StickControl RightStick { get; private set; }
 
     [SerializeField] private Transform overlapPoint;
     [SerializeField] private float overlapRadius;
     [SerializeField] private LayerMask mask;
 
-    private bool canHold = true;
-    private float holdSeconds = 0.5f;
-    private float t = 0;
+    private bool canRightStickTap = true;
+    private float rightStickTapThreshold = 0.9f;
 
     public int overlappedCount = 0;
     private List<IInteractable> overlappedInteractables = new List<IInteractable>();
 
+    private InputManager inputManager;
+
     private void Start() {
-        southButton = InputManager.Instance.GetGamepad().buttonSouth;
-        eastButton = InputManager.Instance.GetGamepad().buttonEast;
+        inputManager = InputManager.Instance;
+
+        SouthButton = inputManager.GetGamepad().buttonSouth;
+        EastButton = inputManager.GetGamepad().buttonEast;
+        LeftShoulder = inputManager.GetGamepad().leftShoulder;
+        RightShoulder = inputManager.GetGamepad().rightShoulder;
+
+        RightStick = inputManager.GetGamepad().rightStick;
     }
 
     private void Update() {
         CheckForInteractables();
-        CheckForInput();
+
+        if (!CanInteract)
+            return;
+
+        CheckInput();
     }
 
     private void CheckForInteractables() {
@@ -52,52 +66,61 @@ public class Interactor : MonoBehaviour {
         }
     }
 
-    private void CheckForInput() {
-        if (southButton.wasReleasedThisFrame) {
-            CanInteract = true;
-            ResetHold();
-        }
-
+    private void CheckInput() {
         if (!CanInteract)
             return;
 
-        if (southButton.wasPressedThisFrame) {
-            if (!HasInteractable())
-                return;
-
-            var hasInteracted = overlappedInteractables[0].PressInteract(this);
-            if (hasInteracted) {
-                CanInteract = false;
-                return;
-            }
-        }
-
-        if (eastButton.wasPressedThisFrame) {
-            if (!HasInteractable())
-                return;
-
-            var hasInteracted = overlappedInteractables[0].PressInteractAlt(this);
-            if (hasInteracted) {
-                CanInteract = false;
-                return;
-            }
-        }
-
-        if (!canHold)
+        if (!HasInteractable())
             return;
 
-        if (southButton.isPressed) {
-            t += Time.deltaTime;
-            if (t >= holdSeconds) {
-                if (HasInteractable()) {
-                    var hasInteracted = overlappedInteractables[0].LongPressInteract(this);
-                    if (hasInteracted) {
-                        CanInteract = false;
-                        return;
-                    }
-                }
-                canHold = false;
-            }
+        SouthButtonCheck();
+        EastButtonCheck();
+        LeftShoulderButtonCheck();
+        RightShoulderButtonCheck();
+
+        RightStickTapCheck();
+    }
+
+    private void SouthButtonCheck() {
+        if (SouthButton.wasPressedThisFrame) {
+            var hasInteracted = overlappedInteractables[0].OnSouth(this);
+        }
+    }
+
+    private void EastButtonCheck() {
+        if (EastButton.wasPressedThisFrame) {
+            var hasInteracted = overlappedInteractables[0].OnEast(this);
+        }
+    }
+
+    private void LeftShoulderButtonCheck() {
+        if (LeftShoulder.wasPressedThisFrame) {
+            var hasInteracted = overlappedInteractables[0].OnLeftShoulder(this);
+        }
+    }
+
+    private void RightShoulderButtonCheck() {
+        if (RightShoulder.wasPressedThisFrame) {
+            var hasInteracted = overlappedInteractables[0].OnRightShoulder(this);
+        }
+    }
+
+    private void RightStickTapCheck() {
+        if (inputManager.IsRightStickInDeadZone()) {
+            canRightStickTap = true;
+        }
+
+        if (!canRightStickTap)
+            return;
+
+        var rightStickX = RightStick.ReadValue().x;
+
+        if (rightStickX >= rightStickTapThreshold) {
+            canRightStickTap = false;
+            var hasInteracted = overlappedInteractables[0].OnRightStickTapRight(this);
+        } else if(rightStickX <= -rightStickTapThreshold) {
+            canRightStickTap = false;
+            var hasInteracted = overlappedInteractables[0].OnRightStickTapLeft(this);
         }
     }
 
@@ -107,11 +130,6 @@ public class Interactor : MonoBehaviour {
         }
 
         return false;
-    }
-
-    private void ResetHold() {
-        canHold = true;
-        t = 0;
     }
 
     private void OnDrawGizmos() {
