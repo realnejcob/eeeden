@@ -23,6 +23,8 @@ public class CurveChain : ChainBase {
         InitialLength = GetCurrentLength();
         BreakLength = InitialLength + breakLengthOffset;
 
+        SetPitchColor();
+
         chainCollider.OnExitSameSide += Ping;
 
         Ping();
@@ -38,15 +40,38 @@ public class CurveChain : ChainBase {
     }
 
     public void Update() {
-        CheckForDestroy();
+        CheckForBoundsDestroy();
     }
 
-    private void CheckForDestroy() {
+    public void Pitch(int step) {
+        var newPitch = currentPitch + step;
+        currentPitch = newPitch;
+    }
+
+    public void SetPitchColor() {
+        var pitchColor = GetPitchColor(currentPitch);
+        lineRenderer.materials[0].SetColor("_BaseColor", pitchColor);
+    }
+
+    private Color GetPitchColor(int pitch) {
+        var normalizedPitch = Mathf.InverseLerp(minPitch, maxPitch, pitch);
+        return pitchGradient.Evaluate(normalizedPitch);
+    }
+
+    private void CheckForBoundsDestroy() {
         if (chainCollider.IsOutOfBounds) {
             if (GetCurrentLength() > BreakLength) {
                 PegConnectionManager.Instance.RemoveConnectionByCurveChain(this);
             }
         }
+    }
+
+    public bool ExceedsPitch() {
+        if (currentPitch > maxPitch || currentPitch < minPitch) {
+            return true;
+        }
+
+        return false;
     }
 
     public override void BuildChain() {

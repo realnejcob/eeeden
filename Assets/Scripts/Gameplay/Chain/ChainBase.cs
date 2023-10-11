@@ -17,6 +17,11 @@ public abstract class ChainBase : MonoBehaviour {
 
     protected Vector3 middleAnchorInitPosition;
 
+    [SerializeField] protected Gradient pitchGradient;
+    [SerializeField] protected int currentPitch = 0;
+    [SerializeField] protected int maxPitch = 2;
+    [SerializeField] protected int minPitch = -2;
+
     private void OnDrawGizmos() {
         if (startAnchor == null || endAnchor == null)
             return;

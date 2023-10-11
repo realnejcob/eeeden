@@ -394,6 +394,39 @@ MonoBehaviour:
   startAnchor: {fileID: 0}
   middleAnchor: {fileID: 0}
   endAnchor: {fileID: 0}
+  pitchGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0.37447503, b: 0.19215685, a: 1}
+    key1: {r: 1, g: 0.79802084, b: 0.3443396, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0.495283, g: 0.76385576, b: 1, a: 0}
+    key4: {r: 0.2235294, g: 0.53538877, b: 1, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 16384
+    ctime2: 32768
+    ctime3: 49151
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: 0
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  currentPitch: 0
+  maxPitch: 2
+  minPitch: -2
   preset: {fileID: 11400000, guid: 3deb81800d9476648975d4c21c07ace7, type: 2}
 --- !u!1 &7848507096421351384
 GameObject:

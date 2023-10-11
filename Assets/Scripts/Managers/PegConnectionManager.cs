@@ -104,6 +104,9 @@ public class PegConnection {
         startingPeg = _startingPeg;
         endingPeg = _endingPeg;
         curveChainObj = _curveChainPrefab;
+
+        startingPeg.AddCurveChain(curveChainObj);
+        endingPeg.AddCurveChain(curveChainObj);
     }
 
     public bool HasPeg(Peg peg) {
@@ -135,6 +138,9 @@ public class PegConnection {
     }
 
     public void Destroy() {
+        startingPeg.RemoveCurveChain(curveChainObj);
+        endingPeg.RemoveCurveChain(curveChainObj);
+
         UnityEngine.Object.Destroy(curveChainObj.gameObject);
     }
 }

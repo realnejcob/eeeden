@@ -8,6 +8,8 @@ public class Peg : MonoBehaviour, IInteractable {
     [SerializeField] private GameObject model;
     [SerializeField] private GameObject hoverIndicator;
 
+    public List<CurveChain> connectedCurveChains { get; private set; } = new List<CurveChain>();
+
     private float tuneAnimationBaseSpeed = 0.5f;
     private bool canTune = true;
 
@@ -19,6 +21,20 @@ public class Peg : MonoBehaviour, IInteractable {
         hoverIndicator.SetActive(false);
     }
 
+    public void AddCurveChain(CurveChain curveChain) {
+        if (connectedCurveChains.Contains(curveChain))
+            return;
+
+        connectedCurveChains.Add(curveChain);
+    }
+
+    public void RemoveCurveChain(CurveChain curveChain) {
+        if (!connectedCurveChains.Contains(curveChain))
+            return;
+
+        connectedCurveChains.Remove(curveChain);
+    }
+
     private void TuneUp() {
         Tune(1);
     }
@@ -27,14 +43,28 @@ public class Peg : MonoBehaviour, IInteractable {
         Tune(-1);
     }
 
-    private void Tune(int steps) {
+    private void Tune(int step) {
         if (!canTune)
             return;
 
-        // Tune connected strings
+        var degrees = step * 45;
+        TuneAnimation(degrees, Mathf.Abs(step) * tuneAnimationBaseSpeed);
 
-        var degrees = steps * (45 + Random.Range(5, 10));
-        TuneAnimation(degrees, Mathf.Abs(steps) * tuneAnimationBaseSpeed);
+        if (connectedCurveChains.Count == 0)
+            return;
+
+        foreach (var curveChains in connectedCurveChains) {
+            curveChains.Pitch(step);
+            curveChains.SetPitchColor();
+        }
+
+        for (int i = connectedCurveChains.Count-1; i >= 0; i--) {
+            var connectedChain = connectedCurveChains[i];
+            if (connectedChain.ExceedsPitch()) {
+                connectedCurveChains.RemoveAt(i);
+                PegConnectionManager.Instance.RemoveConnectionByCurveChain(connectedChain);
+            }
+        }
     }
 
     private LTDescr TuneAnimation(float degrees, float speed) {
