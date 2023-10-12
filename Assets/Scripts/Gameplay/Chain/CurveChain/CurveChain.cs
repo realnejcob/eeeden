@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CurveChain : ChainBase {
     [Header("Spring Settings:")]
-    [SerializeField] private CurveChainPreset preset;
+    [SerializeField] private CurveChainPreset defaultPreset;
+    [SerializeField] private CurveChainPreset mainPreset;
+
     private List<Vector3> initPositions = new List<Vector3>();
 
     private float resonanceTime = 0;
@@ -54,7 +56,7 @@ public class CurveChain : ChainBase {
     }
 
     private Color GetPitchColor(int pitch) {
-        var normalizedPitch = Mathf.InverseLerp(minPitch, maxPitch, pitch);
+        var normalizedPitch = Mathf.InverseLerp(minPitchLimit, maxPitchLimit, pitch);
         return pitchGradient.Evaluate(normalizedPitch);
     }
 
@@ -66,8 +68,8 @@ public class CurveChain : ChainBase {
         }
     }
 
-    public bool ExceedsPitch() {
-        if (currentPitch > maxPitch || currentPitch < minPitch) {
+    public bool ExceedsPitchLimit() {
+        if (currentPitch > maxPitchLimit || currentPitch < minPitchLimit) {
             return true;
         }
 
@@ -130,7 +132,7 @@ public class CurveChain : ChainBase {
     }
 
     private float GetAnimatedY(float increment) {
-       return preset.shapeCurve.Evaluate(increment) * preset.maxForce * preset.movementCurve.Evaluate(resonanceTime) * amount;
+       return defaultPreset.shapeCurve.Evaluate(increment) * defaultPreset.maxForce * defaultPreset.movementCurve.Evaluate(resonanceTime) * amount;
     }
 
     private Vector3 GetDisplaceOffset(float increment) {
@@ -147,7 +149,7 @@ public class CurveChain : ChainBase {
 
         IEnumerator Co() {
             Ping();
-            yield return new WaitForSeconds(preset.duration);
+            yield return new WaitForSeconds(defaultPreset.duration);
             StartCoroutine(Co());
         }
     }
@@ -157,9 +159,9 @@ public class CurveChain : ChainBase {
             LeanTween.cancel(tween.id);
         }
 
-        tween = LeanTween.value(gameObject, 0, 1, preset.duration).setOnUpdate((float time) => {
-            resonanceTime += preset.speed * Time.deltaTime;
-            amount = preset.forceCurve.Evaluate(time);
+        tween = LeanTween.value(gameObject, 0, 1, defaultPreset.duration).setOnUpdate((float time) => {
+            resonanceTime += defaultPreset.speed * Time.deltaTime;
+            amount = defaultPreset.forceCurve.Evaluate(time);
         }).setOnComplete(() => {
             resonanceTime = 0;
         });

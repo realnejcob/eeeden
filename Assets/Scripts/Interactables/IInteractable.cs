@@ -10,6 +10,6 @@ public interface IInteractable {
     public bool OnRightShoulder(Interactor interactor);
     public bool OnRightStickTapRight(Interactor interactor);
     public bool OnRightStickTapLeft(Interactor interactor);
-    public bool HoverEnable(Interactor interactor);
-    public bool HoverDisable(Interactor interactor);
+    public bool OnHoverEnable(Interactor interactor);
+    public bool OnHoverDisable(Interactor interactor);
 }

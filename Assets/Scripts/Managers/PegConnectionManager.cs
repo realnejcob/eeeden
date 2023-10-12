@@ -7,11 +7,19 @@ public class PegConnectionManager : MonoBehaviour {
     public static PegConnectionManager Instance;
     [SerializeField] [ReadOnly] private Peg currentStartingPeg;
     [SerializeField] [ReadOnly] private Peg currentEndingPeg;
+    [SerializeField] [ReadOnly] private Peg potentialEndingPeg;
 
     [Space(15)]
 
     [SerializeField] private CurveChain curveChainPrefab;
     [SerializeField] private List<PegConnection> pegConnections = new List<PegConnection>();
+
+    public Action<Peg> OnConfigureStartingPeg;
+    public Action<Peg> OnConfigureEndingPeg;
+    public Action<Peg> OnPotentialEndingPeg;
+    public Action<Peg> OnPegHoverEnter;
+    public Action<Peg> OnPegHoverExit;
+    public Action OnResetCurrentConnections;
 
     private void Awake() {
         if (Instance == null) {
@@ -21,16 +29,25 @@ public class PegConnectionManager : MonoBehaviour {
         }
     }
 
-    public void AddToCurrentPeg(Peg newPeg) {
+    public void ConfigurePeg(Peg newPeg) {
         if (currentStartingPeg == null) {
+            OnConfigureStartingPeg?.Invoke(newPeg);
+
             currentStartingPeg = newPeg;
         } else {
             if (!IsConnectionCreated(new Peg[] { currentStartingPeg, newPeg })){
+                OnConfigureEndingPeg?.Invoke(newPeg);
+
                 currentEndingPeg = newPeg;
                 CreateConnection();
                 ResetCurrentConnections();
             }
         }
+    }
+
+    public void SetPotentialEndingPeg(Peg newPeg) {
+        OnPotentialEndingPeg?.Invoke(newPeg);
+        potentialEndingPeg = newPeg;
     }
 
     public void DeconfigurePeg(Peg peg) {
@@ -79,6 +96,8 @@ public class PegConnectionManager : MonoBehaviour {
     }
 
     public void ResetCurrentConnections() {
+        OnResetCurrentConnections?.Invoke();
+
         currentStartingPeg = null;
         currentEndingPeg = null;
     }

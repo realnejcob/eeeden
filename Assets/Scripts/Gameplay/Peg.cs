@@ -60,7 +60,7 @@ public class Peg : MonoBehaviour, IInteractable {
 
         for (int i = connectedCurveChains.Count-1; i >= 0; i--) {
             var connectedChain = connectedCurveChains[i];
-            if (connectedChain.ExceedsPitch()) {
+            if (connectedChain.ExceedsPitchLimit()) {
                 connectedCurveChains.RemoveAt(i);
                 PegConnectionManager.Instance.RemoveConnectionByCurveChain(connectedChain);
             }
@@ -85,7 +85,7 @@ public class Peg : MonoBehaviour, IInteractable {
     #region INTERACTIONS
 
     public bool OnSouth(Interactor interactor) {
-        PegConnectionManager.Instance.AddToCurrentPeg(this);
+        PegConnectionManager.Instance.ConfigurePeg(this);
         return true;
     }
 
@@ -97,12 +97,16 @@ public class Peg : MonoBehaviour, IInteractable {
         return false;
     }
 
-    public bool HoverEnable(Interactor interactor) {
+    public bool OnHoverEnable(Interactor interactor) {
+        PegConnectionManager.Instance.OnPegHoverEnter?.Invoke(this);
+
         hoverIndicator.SetActive(true);
         return true;
     }
 
-    public bool HoverDisable(Interactor interactor) {
+    public bool OnHoverDisable(Interactor interactor) {
+        PegConnectionManager.Instance.OnPegHoverExit?.Invoke(this);
+
         hoverIndicator.SetActive(false);
         return true;
     }

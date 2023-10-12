@@ -425,9 +425,10 @@ MonoBehaviour:
     m_NumColorKeys: 5
     m_NumAlphaKeys: 2
   currentPitch: 0
-  maxPitch: 2
-  minPitch: -2
-  preset: {fileID: 11400000, guid: 3deb81800d9476648975d4c21c07ace7, type: 2}
+  maxPitchLimit: 2
+  minPitchLimit: -2
+  defaultPreset: {fileID: 11400000, guid: 3deb81800d9476648975d4c21c07ace7, type: 2}
+  mainPreset: {fileID: 11400000, guid: 2db2bb4188569404e9937c03e533feb8, type: 2}
 --- !u!1 &7848507096421351384
 GameObject:
   m_ObjectHideFlags: 0

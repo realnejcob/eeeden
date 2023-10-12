@@ -46,7 +46,7 @@ public class Interactor : MonoBehaviour {
 
     private void CheckForInteractables() {
         if (overlappedCount > 0) {
-            overlappedInteractables[0].HoverDisable(this);
+            overlappedInteractables[0].OnHoverDisable(this);
         }
 
         overlappedInteractables.Clear();
@@ -62,7 +62,7 @@ public class Interactor : MonoBehaviour {
         overlappedCount = overlappedInteractables.Count;
 
         if (overlappedCount > 0) {
-            overlappedInteractables[0].HoverEnable(this);
+            overlappedInteractables[0].OnHoverEnable(this);
         }
     }
 

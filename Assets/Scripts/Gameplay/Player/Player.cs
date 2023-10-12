@@ -58,7 +58,4 @@ public class Player : Shiftable {
 
         rb.AddForce(Vector3.Scale(neededAccel * rb.mass, new Vector3(1, 0, 1)));
     }
-
-    public void SetDisplacing(bool displacing) {
-    }
 }
