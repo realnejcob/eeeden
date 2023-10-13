@@ -53,9 +53,8 @@ public class Peg : MonoBehaviour, IInteractable {
         if (connectedCurveChains.Count == 0)
             return;
 
-        foreach (var curveChains in connectedCurveChains) {
-            curveChains.Pitch(step);
-            curveChains.SetPitchColor();
+        foreach (var curveChain in connectedCurveChains) {
+            curveChain.Pitch(step);
         }
 
         for (int i = connectedCurveChains.Count-1; i >= 0; i--) {
@@ -64,6 +63,11 @@ public class Peg : MonoBehaviour, IInteractable {
                 connectedCurveChains.RemoveAt(i);
                 PegConnectionManager.Instance.RemoveConnectionByCurveChain(connectedChain);
             }
+        }
+
+        foreach (var curveChain in connectedCurveChains) {
+            curveChain.SetPitchColor();
+            curveChain.DebugPing();
         }
     }
 

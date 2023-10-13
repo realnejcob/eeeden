@@ -13,7 +13,7 @@ public class CurveChain : ChainBase {
     private float amount = 0;
     private float displacementModifier = 1;
 
-    private LTDescr tween;
+    private LTDescr pingTween;
 
     public float InitialLength { get; private set; } = 0;
     public float BreakLength { get; private set; } = 0;
@@ -155,11 +155,11 @@ public class CurveChain : ChainBase {
     }
 
     private void Ping() {
-        if (tween != null) {
-            LeanTween.cancel(tween.id);
+        if (pingTween != null) {
+            LeanTween.cancel(gameObject, pingTween.id);
         }
 
-        tween = LeanTween.value(gameObject, 0, 1, defaultPreset.duration).setOnUpdate((float time) => {
+        pingTween = LeanTween.value(gameObject, 0, 1, defaultPreset.duration).setOnUpdate((float time) => {
             resonanceTime += defaultPreset.speed * Time.deltaTime;
             amount = defaultPreset.forceCurve.Evaluate(time);
         }).setOnComplete(() => {
