@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateSpringInEditor: 0
-  autoPlay: 0
+  autoPlay: 1
   chainResolution: 9
   lineRenderer: {fileID: 4056152318096376358}
   chainCollider: {fileID: 5150221144889121655}
@@ -427,7 +427,7 @@ MonoBehaviour:
   currentPitch: 0
   maxPitchLimit: 2
   minPitchLimit: -2
-  defaultPreset: {fileID: 11400000, guid: 3deb81800d9476648975d4c21c07ace7, type: 2}
+  defaultPreset: {fileID: 11400000, guid: 2db2bb4188569404e9937c03e533feb8, type: 2}
   mainPreset: {fileID: 11400000, guid: 2db2bb4188569404e9937c03e533feb8, type: 2}
 --- !u!1 &7848507096421351384
 GameObject:
